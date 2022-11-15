@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/printf.h"
+#include "../includes/ft_printf.h"
 
 static char	*make_final_forpnt(t_flags f)
 {
-	char *final;
+	char	*final;
 
 	if (f.p == 0 && f.precision == 0 && f.dot)
 	{
@@ -26,7 +26,7 @@ static char	*make_final_forpnt(t_flags f)
 	return (final);
 }
 
-int			insert_pointer(const char *str, va_list ap)
+int	insert_pointer(const char *str, va_list ap)
 {
 	t_flags		f;
 	char		*flags;

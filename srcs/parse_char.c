@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/printf.h"
+#include "../includes/ft_printf.h"
 
-static int		handle_null(t_flags f, char *flags, char *final)
+static int	handle_null(t_flags f, char *flags, char *final)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	free(final);
@@ -38,7 +38,7 @@ static int		handle_null(t_flags f, char *flags, char *final)
 	return (i);
 }
 
-int				insert_char(const char *str, va_list ap)
+int	insert_char(const char *str, va_list ap)
 {
 	t_flags	f;
 	char	*flags;

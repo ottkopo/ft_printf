@@ -6,13 +6,13 @@
 /*   By: okoponen <ottkopo@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 14:57:18 by okoponen          #+#    #+#             */
-/*   Updated: 2020/09/04 13:16:29 by okoponen         ###   ########.fr       */
+/*   Updated: 2022/07/08 15:03:27 by okoponen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/printf.h"
+#include "../includes/ft_printf.h"
 
-static char		*parse_hexaflags2(t_flags f, char *final, char capital, int i)
+static char	*parse_hexaflags2(t_flags f, char *final, char capital, int i)
 {
 	if (f.hash == 1 && f.x != 0)
 	{
@@ -30,7 +30,7 @@ static char		*parse_hexaflags2(t_flags f, char *final, char capital, int i)
 	return (final);
 }
 
-static char		*parse_hexaflags(t_flags f, char *final, char capital, int i)
+static char	*parse_hexaflags(t_flags f, char *final, char capital, int i)
 {
 	if (f.hash == 1 && f.x != 0)
 	{
@@ -55,9 +55,9 @@ static char		*parse_hexaflags(t_flags f, char *final, char capital, int i)
 	return (final);
 }
 
-static char		*make_final_forx(t_flags f, char capital)
+static char	*make_final_forx(t_flags f, char capital)
 {
-	char *final;
+	char	*final;
 
 	if (f.x == 0 && f.dot == 1 && f.precision == 0)
 	{
@@ -76,7 +76,7 @@ static char		*make_final_forx(t_flags f, char capital)
 
 static t_flags	make_x_struct(char *flags, va_list ap)
 {
-	t_flags f;
+	t_flags	f;
 
 	f = check_flags(flags, 0);
 	f.x = cast_unsigned_number(f, ap);
@@ -85,7 +85,7 @@ static t_flags	make_x_struct(char *flags, va_list ap)
 	return (f);
 }
 
-int				insert_hexadecimal(const char *str, va_list ap, char capital)
+int	insert_hexadecimal(const char *str, va_list ap, char capital)
 {
 	t_flags		f;
 	char		*flags;
@@ -98,9 +98,11 @@ int				insert_hexadecimal(const char *str, va_list ap, char capital)
 	final = make_final_forx(f, capital);
 	f.oglen = ft_strlen(final);
 	final = handle_precision(final, f);
-	final = (!f.zero) ? parse_hexaflags(f, final, capital, 0) : final;
+	if (!f.zero)
+		final = parse_hexaflags(f, final, capital, 0);
 	final = handle_fieldwidth(f, final, 0, 0);
-	final = (f.zero) ? parse_hexaflags(f, final, capital, 0) : final;
+	if (f.zero)
+		final = parse_hexaflags(f, final, capital, 0);
 	ft_putstr(final);
 	free(flags);
 	len = ft_strlen(final);

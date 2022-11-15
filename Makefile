@@ -6,7 +6,7 @@
 #    By: okoponen <ottkopo@gmail.com>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/17 15:41:09 by okoponen          #+#    #+#              #
-#    Updated: 2020/09/07 14:30:54 by okoponen         ###   ########.fr        #
+#    Updated: 2022/08/03 14:56:08 by okoponen         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -45,10 +45,3 @@ fclean : clean
 	make fclean -C libft/
 
 re : fclean all
-
-test :
-	@ cp $(LIBFT) $(NAME)
-	@ gcc -Wall -Wextra -Werror -c $(SRC)
-	@ ar rc $(NAME) $(OBJ)
-	@ make clean
-	gcc -Wall -Werror -Wextra -o ft_printf libftprintf.a main.c libft/libft.a -I includes -I libft

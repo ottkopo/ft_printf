@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/printf.h"
-#include <stdio.h>
+#include "../includes/ft_printf.h"
 
-char		*parse_octalflags(t_flags f, char *final)
+char	*parse_octalflags(t_flags f, char *final)
 {
 	char	*newstr;
 	int		i;
@@ -26,7 +25,7 @@ char		*parse_octalflags(t_flags f, char *final)
 		i++;
 	if (i == 0 && f.hash && final[i] != '0')
 	{
-		final = ft_strjoin(newstr, final);
+		final = finaljoin(newstr, final);
 		if (f.fw < 0)
 		{
 			while (final[i])
@@ -43,7 +42,7 @@ char		*parse_octalflags(t_flags f, char *final)
 
 static char	*make_final_foro(t_flags f)
 {
-	char *final;
+	char	*final;
 
 	if (f.o == 0 && f.dot && f.precision == 0)
 	{
@@ -55,7 +54,7 @@ static char	*make_final_foro(t_flags f)
 	return (final);
 }
 
-int			insert_octal(const char *str, va_list ap)
+int	insert_octal(const char *str, va_list ap)
 {
 	t_flags		f;
 	char		*flags;

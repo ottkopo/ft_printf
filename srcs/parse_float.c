@@ -6,28 +6,37 @@
 /*   By: okoponen <ottkopo@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 17:52:38 by okoponen          #+#    #+#             */
-/*   Updated: 2020/09/21 16:57:10 by okoponen         ###   ########.fr       */
+/*   Updated: 2022/07/13 15:00:18 by okoponen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/printf.h"
+#include "../includes/ft_printf.h"
 
-static char		*handle_sign(t_flags f, char *final)
+char	determine_insert_for_float(t_flags f)
+{
+	if (f.isnegative)
+		return ('-');
+	if (f.plus && !f.isnegative)
+		return ('+');
+	if (f.space && !f.isnegative && !f.plus)
+		return (' ');
+	return ('\0');
+}
+
+static char	*handle_sign(t_flags f, char *final)
 {
 	int		i;
 	char	*insert;
 
 	i = 0;
 	insert = ft_memalloc(2);
-	insert[0] = (f.isnegative) ? '-' : insert[0];
-	insert[0] = (f.plus && !f.isnegative) ? '+' : insert[0];
-	insert[0] = (f.space && !f.isnegative && !f.plus) ? ' ' : insert[0];
+	insert[0] = determine_insert_for_float(f);
 	insert[1] = '\0';
 	while (final[i] == ' ' && final[i])
 		i++;
-	if (i == 0 && (!f.zero || (f.zero && f.fw < 0) || f.fw <= f.oglen) &&\
+	if (i == 0 && (!f.zero || (f.zero && f.fw < 0) || f.fw <= f.oglen) && \
 		insert[0])
-		final = ft_strjoin(insert, final);
+		final = finaljoin(insert, final);
 	else if (final[i] == '0' && f.zero && insert[0])
 		final[i] = insert[0];
 	if (f.fw < 0 && insert[0] && f.fw * -1 > f.oglen && f.zero)
@@ -40,9 +49,9 @@ static char		*handle_sign(t_flags f, char *final)
 	return (final);
 }
 
-int				insert_float(const char *str, va_list ap)
+int	insert_float(const char *str, va_list ap)
 {
-	t_flags f;
+	t_flags	f;
 	char	*flags;
 	char	*final;
 	int		len;
@@ -63,8 +72,8 @@ int				insert_float(const char *str, va_list ap)
 	if (f.zero)
 		final = handle_sign(f, final);
 	ft_putstr(final);
+	len = ft_strlen(final);
 	free(final);
 	free(flags);
-	len = ft_strlen(final);
 	return (len);
 }

@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/printf.h"
+#include "../includes/ft_printf.h"
 
-int			handle_variable(const char *str, va_list ap, int i)
+int	handle_variable(const char *str, va_list ap, int i)
 {
-	while (str[i] && str[i] != 'd' && str[i] != 'i' && str[i] != '%' &&\
+	while (str[i] && str[i] != 'd' && str[i] != 'i' && str[i] != '%' && \
 		str[i] != 'c' && str[i] != 's' && str[i] != 'p' && str[i] != \
 		'o' && str[i] != 'u' && str[i] != 'x' && str[i] != 'X' && \
 		str[i] != 'f')
@@ -24,7 +24,7 @@ int			handle_variable(const char *str, va_list ap, int i)
 	if (str[i] == 'c')
 		return (insert_char(str, ap));
 	if (str[i] == 's')
-		return (insert_string(str, ap, 0));
+		return (insert_string(str, ap));
 	if (str[i] == 'p')
 		return (insert_pointer(str, ap));
 	if (str[i] == 'o')
@@ -46,7 +46,7 @@ static int	writechar(char c)
 	return (1);
 }
 
-int			ft_printf(const char *str, ...)
+int	ft_printf(const char *str, ...)
 {
 	va_list	ap;
 	int		i;
@@ -60,8 +60,8 @@ int			ft_printf(const char *str, ...)
 		if (str[i] == '%')
 		{
 			count += handle_variable(&str[++i], ap, 0);
-			while (str[i] && str[i] != 'd' && str[i] != 'i' && str[i] != '%' &&\
-				str[i] != 'c' && str[i] != 's' && str[i] != 'p' && str[i] !=\
+			while (str[i] && str[i] != 'd' && str[i] != 'i' && str[i] != '%' && \
+				str[i] != 'c' && str[i] != 's' && str[i] != 'p' && str[i] != \
 				'o' && str[i] != 'u' && str[i] != 'x' && str[i] != 'X' && \
 				str[i] != 'f')
 				i++;

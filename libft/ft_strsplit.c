@@ -12,10 +12,10 @@
 
 #include "libft.h"
 
-static int		ft_count_substrings(char const *s, char c)
+static int	ft_count_substrings(char const *s, char c)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	i = 0;
 	count = 0;
@@ -34,7 +34,7 @@ static int		ft_count_substrings(char const *s, char c)
 	return (count);
 }
 
-static char		*ft_create_str(char const *s, char c)
+static char	*ft_create_str(char const *s, char c)
 {
 	size_t	j;
 	size_t	i;
@@ -54,7 +54,7 @@ static char		*ft_create_str(char const *s, char c)
 	return (str);
 }
 
-char			**ft_strsplit(char const *s, char c)
+char	**ft_strsplit(char const *s, char c)
 {
 	size_t	i;
 	int		count;

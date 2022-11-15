@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "../includes/printf.h"
+#include "../includes/ft_printf.h"
 
-int			find_precision(char *flags, t_flags *f, int i, int j)
+int	find_precision(char *flags, t_flags *f, int i, int j)
 {
 	int		p;
 	int		prec;
@@ -42,7 +41,7 @@ int			find_precision(char *flags, t_flags *f, int i, int j)
 	return (0);
 }
 
-char		*handle_precision(char *final, t_flags f)
+char	*handle_precision(char *final, t_flags f)
 {
 	int		len;
 	char	*str;
@@ -66,7 +65,7 @@ char		*handle_precision(char *final, t_flags f)
 	return (final);
 }
 
-char		*handle_stringprecision(t_flags f, char *final, int boolnull)
+char	*handle_stringprecision(t_flags f, char *final)
 {
 	int		len;
 	char	*str;
@@ -75,10 +74,8 @@ char		*handle_stringprecision(t_flags f, char *final, int boolnull)
 	len = ft_strlen(final);
 	if (f.precision < len && f.precision != -1)
 	{
-		str = malloc(sizeof(char) * (f.precision));
 		str = ft_strsub(final, 0, f.precision);
-		if (boolnull == 1)
-			free(final);
+		free(final);
 		return (str);
 	}
 	else

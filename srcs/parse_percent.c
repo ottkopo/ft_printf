@@ -6,13 +6,13 @@
 /*   By: okoponen <ottkopo@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 14:24:37 by okoponen          #+#    #+#             */
-/*   Updated: 2020/09/02 15:06:59 by okoponen         ###   ########.fr       */
+/*   Updated: 2022/07/08 14:52:02 by okoponen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/printf.h"
+#include "../includes/ft_printf.h"
 
-int			insert_percent(const char *str)
+int	insert_percent(const char *str)
 {
 	t_flags		f;
 	char		*flags;

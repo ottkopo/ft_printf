@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/printf.h"
+#include "../includes/ft_printf.h"
 
-int			insert_unsigned_int(const char *str, va_list ap)
+int	insert_unsigned_int(const char *str, va_list ap)
 {
 	t_flags	f;
 	char	*flags;

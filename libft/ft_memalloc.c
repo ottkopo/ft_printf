@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-void		*ft_memalloc(size_t size)
+void	*ft_memalloc(size_t size)
 {
-	char *array;
+	char	*array;
 
 	array = malloc(sizeof(char) * size);
 	if (!array)

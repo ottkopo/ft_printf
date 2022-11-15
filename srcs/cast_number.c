@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/printf.h"
-#include <stdio.h>
+#include "../includes/ft_printf.h"
 
-intmax_t		cast_number(t_flags f, va_list ap)
+intmax_t	cast_number(t_flags f, va_list ap)
 {
-	intmax_t nbr;
+	intmax_t	nbr;
 
 	if (f.hh)
 		nbr = (char)va_arg(ap, int);
@@ -30,9 +29,9 @@ intmax_t		cast_number(t_flags f, va_list ap)
 	return (nbr);
 }
 
-uintmax_t		cast_unsigned_number(t_flags f, va_list ap)
+uintmax_t	cast_unsigned_number(t_flags f, va_list ap)
 {
-	uintmax_t nbr;
+	uintmax_t	nbr;
 
 	if (f.hh)
 		nbr = (unsigned char)va_arg(ap, unsigned int);
@@ -47,9 +46,9 @@ uintmax_t		cast_unsigned_number(t_flags f, va_list ap)
 	return (nbr);
 }
 
-char			*cast_float(t_flags *f, va_list ap)
+char	*cast_float(t_flags *f, va_list ap)
 {
-	char *final;
+	char	*final;
 
 	final = NULL;
 	if (!f->cap_l)

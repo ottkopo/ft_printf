@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-void		ft_putnbr(int n)
+void	ft_putnbr(int n)
 {
-	long i;
+	long	i;
 
 	i = n;
 	if (i < 0)

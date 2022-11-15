@@ -28,10 +28,9 @@ static int	ft_array_size(long long n)
 	return (count);
 }
 
-char		*ft_itoa(long long n)
+char	*ft_itoa(long long n)
 {
 	char		*str;
-	long long	mod;
 	int			i;
 	int			sign;
 	long long	num;
@@ -39,7 +38,8 @@ char		*ft_itoa(long long n)
 	i = 0;
 	num = n;
 	sign = (num < 0);
-	num = num < 0 ? num * -1 : num;
+	if (num < 0)
+		num = num * -1;
 	str = (char *)malloc(sizeof(char) * (ft_array_size(n) + sign + 1));
 	if (!str)
 		return (NULL);
@@ -47,9 +47,8 @@ char		*ft_itoa(long long n)
 		str[i++] = 0 + '0';
 	while (num)
 	{
-		mod = num % 10;
+		str[i++] = (num % 10) + '0';
 		num = num / 10;
-		str[i++] = mod + '0';
 	}
 	if (sign)
 		str[i++] = '-';

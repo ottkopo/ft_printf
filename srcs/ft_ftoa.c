@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/printf.h"
-#include <stdlib.h>
+#include "../includes/ft_printf.h"
 
-static char		*handle_after(long double n, int precision)
+static char	*handle_after(long double n, int precision)
 {
 	int		i;
 	int		after;
@@ -39,7 +38,7 @@ static char		*handle_after(long double n, int precision)
 
 static double	rounded(int precision)
 {
-	double round;
+	double	round;
 
 	round = 0.5;
 	while (precision--)
@@ -47,21 +46,61 @@ static double	rounded(int precision)
 	return (round);
 }
 
-char			*ft_ftoa(long double n, int precision, t_flags *f)
+long double	round_bankers(long double n, int precision)
 {
-	__int128_t	before;
+	long long	before;
+	long double	after;
+
+	before = (long long)n;
+	after = n - before;
+	if (precision == 0 && after == 0.5)
+	{
+		if (before % 2 == 1)
+			n = n - after + 1.0;
+		else
+			n = n - after;
+	}
+	else
+		n = n + rounded(precision);
+	return (n);
+}
+
+static char	*is_nan(double nbr, t_flags *f)
+{
+	if (nbr == 1.0 / 0.0 || nbr == -1.0 / 0.0 || nbr != nbr)
+	{
+		f->minus = 0;
+		f->plus = 0;
+		f->zero = 0;
+		f->space = 0;
+	}
+	if (nbr == 1.0 / 0.0)
+		return (ft_strdup("inf"));
+	if (nbr == -1.0 / 0.0)
+		return (ft_strdup("-inf"));
+	if (nbr != nbr)
+		return (ft_strdup("nan"));
+	return (NULL);
+}
+
+char	*ft_ftoa(long double n, int precision, t_flags *f)
+{
+	long long	before;
 	char		*final;
 	char		*after;
 	char		*sbefore;
 
+	final = is_nan(n, f);
+	if (final)
+		return (final);
 	f->isnegative = 0;
-	if (n < 0)
+	if (n < 0 || 1 / n < 0)
 	{
 		n = n * -1;
 		f->isnegative = 1;
 	}
-	n = n + rounded(precision);
-	before = (__int128_t)n;
+	n = round_bankers(n, precision);
+	before = (long long)n;
 	n = n - before;
 	sbefore = ft_itoa(before);
 	after = handle_after(n, precision);

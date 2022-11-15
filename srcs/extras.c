@@ -6,85 +6,87 @@
 /*   By: okoponen <ottkopo@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 11:58:19 by okoponen          #+#    #+#             */
-/*   Updated: 2020/09/02 11:49:59 by okoponen         ###   ########.fr       */
+/*   Updated: 2022/07/13 14:53:52 by okoponen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/printf.h"
-#include <limits.h>
+#include "../includes/ft_printf.h"
 
-char			*uimaxtoa_base(uintmax_t n, int base)
+char	*uimaxtoa_base(uintmax_t n, int base)
 {
 	char		*s;
 	int			i;
 	uintmax_t	temp;
 
-	i = 0;
+	i = (n == 0);
 	temp = n;
-	while ((temp /= base) >= 1)
-		i++;
-	i++;
-	s = (char *)malloc(sizeof(char) * i);
-	s[i] = '\0';
-	while (i--)
+	while (temp >= 1)
 	{
-		s[i] = (n % base < 10) ? n % base + '0' : n % base + 'A' - 10;
-		n /= base;
-	}
-	return (s);
-}
-
-char			*uimaxtoa_base_lower(uintmax_t n, int base)
-{
-	char		*s;
-	int			i;
-	uintmax_t	temp;
-
-	s = NULL;
-	i = 0;
-	temp = n;
-	while ((temp /= base) >= 1)
 		i++;
-	i++;
-	s = (char *)malloc(sizeof(char) * i);
-	s[i] = '\0';
-	while (i--)
-	{
-		s[i] = (n % base < 10) ? n % base + '0' : n % base + 'a' - 10;
-		n /= base;
+		temp /= base;
 	}
-	return (s);
-}
-
-char			*imaxtoa_base(intmax_t n, int base)
-{
-	char		*s;
-	int			i;
-	int			sign;
-	intmax_t	temp;
-
-	if (n == LONG_MIN || n == LLONG_MIN)
-		return (ft_strdup("9223372036854775808"));
-	i = 0;
-	sign = (n < 0 && base == 10) ? -1 : 0;
-	n = (n < 0) ? (n * -1) : n;
-	i = (sign == -1) ? 2 : 1;
-	temp = n;
-	while ((temp /= base) >= 1)
-		i++;
 	s = (char *)malloc(sizeof(char) * (i + 1));
 	s[i] = '\0';
-	while (i-- + sign)
+	while (i--)
 	{
-		s[i] = (n % base < 10) ? n % base + '0' : n % base + 'A' - 10;
+		s[i] = DIGITS_UPPER[n % base];
 		n /= base;
 	}
-	if (i == 0 && base == 10)
+	return (s);
+}
+
+char	*uimaxtoa_base_lower(uintmax_t n, int base)
+{
+	char		*s;
+	int			i;
+	uintmax_t	temp;
+
+	i = (n == 0);
+	temp = n;
+	while (temp >= 1)
+	{
+		i++;
+		temp /= base;
+	}
+	s = (char *)malloc(sizeof(char) * (i + 1));
+	s[i] = '\0';
+	while (i--)
+	{
+		s[i] = DIGITS_LOWER[n % base];
+		n /= base;
+	}
+	return (s);
+}
+
+char	*imaxtoa_base(intmax_t value, int base)
+{
+	char			*s;
+	intmax_t		n;
+	int				sign;
+	int				i;
+
+	if (base == 10 && (value == LONG_MIN || value == LLONG_MIN))
+		return (ft_strdup("9223372036854775808"));
+	n = value;
+	sign = (value < 0 && base == 10) * -1;
+	i = (value == 0);
+	while (n >= 1)
+	{
+		n /= base;
+		i++;
+	}
+	s = ft_strnew(sizeof(char) * (i + 1 + (-sign)));
+	while (i--)
+	{
+		s[i + (-sign)] = DIGITS_UPPER[value % base];
+		value /= base;
+	}
+	if (i == 0 && sign == -1 && base == 10)
 		s[i] = '-';
 	return (s);
 }
 
-char			*finaljoin(char *str, char *final)
+char	*finaljoin(char *str, char *final)
 {
 	char	*fresh;
 	size_t	i;
@@ -107,7 +109,7 @@ char			*finaljoin(char *str, char *final)
 	return (fresh);
 }
 
-char			*finaljoin_reverse(char *final, char *str)
+char	*finaljoin_reverse(char *final, char *str)
 {
 	char		*fresh;
 	size_t		i;

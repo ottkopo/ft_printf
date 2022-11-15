@@ -12,10 +12,10 @@
 
 #include "libft.h"
 
-char		*ft_strrev(char *s)
+char	*ft_strrev(char *s)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = ft_strlen(s) - 1;
 	j = 0;

@@ -14,7 +14,7 @@
 
 char	*ft_strstr(const char *haystack, const char *needle)
 {
-	size_t i[3];
+	size_t	i[3];
 
 	i[0] = 0;
 	i[1] = 0;

@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-void		ft_swap(char *c1, char *c2)
+void	ft_swap(char *c1, char *c2)
 {
-	char tmp;
+	char	tmp;
 
 	tmp = *c1;
 	*c1 = *c2;

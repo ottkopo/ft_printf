@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-char		*ft_strnew(size_t size)
+char	*ft_strnew(size_t size)
 {
-	char *fresh;
+	char	*fresh;
 
 	fresh = (char *)malloc(sizeof(char) * (size + 1));
 	if (!fresh)

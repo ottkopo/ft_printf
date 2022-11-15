@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/printf.h"
+#include "../includes/ft_printf.h"
 
-int			insert_string(const char *str, va_list ap, int boolnull)
+int	insert_string(const char *str, va_list ap)
 {
 	t_flags	f;
 	char	*flags;
@@ -22,21 +22,17 @@ int			insert_string(const char *str, va_list ap, int boolnull)
 	final = NULL;
 	flags = ft_strsub(str, 0, flaglen(str));
 	f = check_flags(flags, 0);
-	final = va_arg(ap, char *);
+	final = ft_strdup(va_arg(ap, char *));
 	if (!final)
-	{
 		final = ft_strdup("(null)");
-		boolnull = 1;
-	}
 	f.fw = find_fw(flags, 0, 0, 0);
 	f.precision = find_precision(flags, &f, 0, 0);
 	if (f.dot)
-		final = handle_stringprecision(f, final, boolnull);
+		final = handle_stringprecision(f, final);
 	final = handle_stringwidth(f, final, 0, 0);
 	ft_putstr(final);
 	free(flags);
 	len = ft_strlen(final);
-	if (boolnull)
-		free(final);
+	free(final);
 	return (len);
 }
